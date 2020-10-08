@@ -5,21 +5,21 @@ function createMarkup(html) {
 }
 
 function App() {
-    function solve(x) {
-        console.log(x)
-        x = x || ""
-        if (x.split("->").length < 2)
+    const solve = (x = "") => {
+        x = x.replace(/^(\d+)/g, '')
+        x = x.replace(/([^A-Za-z])(\d+)/g, '')
+        if (x.split("=").length < 2)
             return "Chưa đủ 2 vế của phương trình";
         let bigNumber = 1;
         var arrayOfNumbers = new Set(x.split(/\D+/g));
         arrayOfNumbers.delete("");
         for (let i of arrayOfNumbers) bigNumber *= parseInt(i);
 
-        var left = x.split("->")[0].split("+");
-        var righ = x.split("->")[1].split("+");
+        var left = x.split("=")[0].split("+");
+        var righ = x.split("=")[1].split("+");
         var molecules = left.length + righ.length;
 
-        var elems = new Set(x.replace(/\d+|\+|->/g, "").match(/([A-Z][a-z]*)/g));
+        var elems = new Set(x.replace(/\d+|\+|=/g, "").match(/([A-Z][a-z]*)/g));
         elems.delete("");
 
         var rrefArray = [];
@@ -96,7 +96,7 @@ function App() {
             if (coEff !== 1) out += coEff;
             out += left.shift();
             if (left.length === 0 && righ.length !== 0) {
-                out += "->";
+                out += " = ";
                 left = righ;
             } else if (i !== coEffs.length - 1) out += "+";
         }
