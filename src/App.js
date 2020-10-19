@@ -121,6 +121,7 @@ function App() {
             </div>
             <div dangerouslySetInnerHTML={createMarkup(balance.replace(/([A-Za-z])(\d+)/g, '$1<sub>$2</sub>'))} >
             </div>
+            <iframe scrolling="no" width="600px" height="450px" src="https://chem-space.com/search#mol"></iframe>
         </div>
     );
 }
